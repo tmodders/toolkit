@@ -62,11 +62,8 @@ public class ExampleGrassSeedsItem : ModItem
         
         WorldGen.PlaceTile(x, y, ModContent.TileType<ExampleGrassTile>(), true);
         
-        if (Main.netMode == NetmodeID.Server)
-        {
-            // Synchronizes the tile placement across the server.
-            NetMessage.SendTileSquare(-1, x, y);
-        }
+        // Synchronizes the tile placement across the server.
+        NetMessage.SendTileSquare(-1, x, y);
         
         return true;
     }
@@ -190,11 +187,6 @@ public class ExampleGrassTile : ModTile
 
         WorldGen.PlaceObject(i, j + 1, type);
         
-        if (Main.netMode != NetmodeID.Server)
-        {
-            return;
-        }
-        
         // Synchronizes the tile placement across the server.
         NetMessage.SendTileSquare(-1, i, j + 1);
     }
@@ -225,11 +217,6 @@ public class ExampleGrassTile : ModTile
         var style = Main.rand.Next(0, 8);
 
         WorldGen.PlaceObject(i, j - 1, type, false, style);
-        
-        if (Main.netMode != NetmodeID.Server)
-        {
-            return;
-        }
         
         // Synchronizes the tile placement across the server.
         NetMessage.SendTileSquare(-1, i, j + 1);
