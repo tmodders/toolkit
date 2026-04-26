@@ -4,13 +4,15 @@ using Terraria.ModLoader;
 namespace ExampleMod.Content.Guns;
 
 /// <summary>
-///     Provides a practical example of a gun that shoots bullets.
+///     Provides a practical example of a gun that shoots bullets in bursts.
 /// </summary>
-public class ExampleGunItem : ModItem
+public class ExampleBurstsGunItem : ModItem
 {
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Ranged;
+        
+        Item.consumeAmmoOnLastShotOnly = true;
         
         // Indicates the item does not deal contact damage.
         Item.noMelee = true;
@@ -20,12 +22,23 @@ public class ExampleGunItem : ModItem
         Item.height = 16;
 
         Item.UseSound = SoundID.Item4;
-
-        // Indicates the item takes 15 frames to be used.
-        Item.useTime = 15;
         
-        // Indicates the animation of the item lasts 15 frames.
-        Item.useAnimation = 15;
+        // The amount of bursts.
+        var bursts = 3;
+        
+        // The duration of each burst.
+        var duration = 4;
+        
+        // Indicates the item fires one shot every 4 frames during the burst.
+        Item.useTime = duration;
+        
+        // Indicates the animation lasts long enough to fire all shots in the burst.
+        Item.useAnimation = duration * bursts;
+
+        var delay = duration * bursts + 10;
+
+        // Indicates the item waits until all bursts are shot plus an additional 10 frames before it can be reused.
+        Item.reuseDelay = delay;
         
         Item.useStyle = ItemUseStyleID.Shoot;
 

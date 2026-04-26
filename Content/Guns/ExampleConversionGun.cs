@@ -1,12 +1,14 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExampleMod.Content.Guns;
 
 /// <summary>
-///     Provides a practical example of a gun that shoots bullets.
+///     Provides a practical example of a gun that converts musket bullets into example bullets.
 /// </summary>
-public class ExampleGunItem : ModItem
+public class ExampleConversionGunItem : ModItem
 {
     public override void SetDefaults()
     {
@@ -37,5 +39,16 @@ public class ExampleGunItem : ModItem
 
         // Indicates the type of ammo that the projectile uses.
         Item.useAmmo = AmmoID.Bullet;
+    }
+
+    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+    {
+        if (type != ProjectileID.Bullet)
+        {
+            return;
+        }
+        
+        // Overrides the type of the projectile shot by the item.
+        type = ModContent.ProjectileType<ExampleBulletProjectile>();
     }
 }

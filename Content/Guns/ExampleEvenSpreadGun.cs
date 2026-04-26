@@ -1,12 +1,16 @@
-﻿using Terraria.ID;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExampleMod.Content.Guns;
 
 /// <summary>
-///     Provides a practical example of a gun that shoots bullets.
+///     Provides a practical example of a gun that shoots bullets in an even spread.
 /// </summary>
-public class ExampleGunItem : ModItem
+public class ExampleEvenSpreadGunItem : ModItem
 {
     public override void SetDefaults()
     {
@@ -37,5 +41,22 @@ public class ExampleGunItem : ModItem
 
         // Indicates the type of ammo that the projectile uses.
         Item.useAmmo = AmmoID.Bullet;
+    }
+
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        // The amount of projectiles to be shot.
+        var amount = 5;
+        
+        // The rotation of each shot, in degrees.
+        var rotation = MathHelper.ToRadians(30f);
+        
+        for (var i = 0; i < amount; i++)
+        {
+            Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (MathF.Max(amount, 1f) - 1f))), type, damage, knockback, player.whoAmI);
+        }
+        
+        // Returning false in Shoot() prevents the original projectile from being shot.
+        return false;
     }
 }

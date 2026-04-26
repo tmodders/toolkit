@@ -1,12 +1,14 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExampleMod.Content.Guns;
 
 /// <summary>
-///     Provides a practical example of a gun that shoots bullets.
+///     Provides a practical example of a gun that shoots bullets with a muzzle offset.
 /// </summary>
-public class ExampleGunItem : ModItem
+public class ExampleMuzzleOffsetGun : ModItem
 {
     public override void SetDefaults()
     {
@@ -37,5 +39,20 @@ public class ExampleGunItem : ModItem
 
         // Indicates the type of ammo that the projectile uses.
         Item.useAmmo = AmmoID.Bullet;
+    }
+
+    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+    {
+        // The distance of the muzzle offset, in pixels.
+        var distance = 25f;
+        
+        var offset = velocity.SafeNormalize(Vector2.Zero) * distance;
+
+        if (!Collision.CanHit(position, 0, 0, position + offset, 0, 0))
+        {
+            return;
+        }
+        
+        position += offset;
     }
 }
