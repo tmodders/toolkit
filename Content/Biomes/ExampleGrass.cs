@@ -185,17 +185,8 @@ public class ExampleGrassTile : ModTile
     {
         const int chance = 15;
 
-        // Checks whether the tiles meet the chance conditions to place a vine below the tile.
-        if (!WorldGen.genRand.NextBool(chance))
-        {
-            return;
-        }
-
-        var tile = Framing.GetTileSafely(i, j);
-        var below = Framing.GetTileSafely(i, j + 1);
-
         // Checks whether the tiles meet the conditions to place a vine below the tile.
-        if (tile.BottomSlope || below.HasTile || below.LiquidType == LiquidID.Lava)
+        if (!WorldGen.genRand.NextBool(chance) || !WorldGen.GrowMoreVines(i, j))
         {
             return;
         }
