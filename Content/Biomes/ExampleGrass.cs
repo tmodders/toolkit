@@ -145,14 +145,26 @@ public class ExampleGrassTile : ModTile
 
     public override void FloorVisuals(Player player)
     {
+        var speed = MathF.Abs(player.velocity.X);
+        
         // Checks whether the player is walking.
-        if (MathF.Abs(player.velocity.X) == 0f)
+        if (speed == 0f)
+        {
+            return;
+        }
+        
+        // Makes dust spawn more frequently the faster the player is.
+        const float rate = 30f;
+        
+        var chance = (int)MathHelper.Clamp(rate / speed, 1f, rate);
+
+        if (!Main.rand.NextBool(chance))
         {
             return;
         }
 
         // Spawns dust effects whenever the player is walking on the tile.
-        Dust.NewDust(player.Bottom, 0, 0, DustType, 0f, -player.velocity.X / 10f);
+        Dust.NewDust(player.BottomLeft, player.width, 0, DustType, 0f, -player.velocity.X / 10f);
     }
 
     public override void RandomUpdate(int i, int j)
