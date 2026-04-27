@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Content.Tools;
+namespace Toolkit.Content.Tools;
 
 /// <summary>
 ///     Provides a practical example of a hammer.

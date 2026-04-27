@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Content.Guns;
+namespace Toolkit.Content.Guns;
 
 /// <summary>
 ///     Provides a practical example of a gun that shoots bullets in bursts.

@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Content.Swords;
+namespace Toolkit.Content.Swords;
 
 /// <summary>
 ///     Provides a practical example of a sword.

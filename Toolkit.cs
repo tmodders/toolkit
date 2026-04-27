@@ -1,8 +1,8 @@
 using Terraria.ModLoader;
 
-namespace ExampleMod;
+namespace Toolkit;
 
 /// <summary>
 ///     The <see cref="Mod"/> implementation of the Example Mod.
 /// </summary>
-public sealed class ExampleMod : Mod;
+public sealed class Toolkit : Mod;

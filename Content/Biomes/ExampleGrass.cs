@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Content.Biomes;
+namespace Toolkit.Content.Biomes;
 
 public class ExampleGrassSeedsItem : ModItem
 {
